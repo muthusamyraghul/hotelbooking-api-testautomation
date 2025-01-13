@@ -40,22 +40,22 @@ public class createMessageStepDef {
         context.response = context.requestSetup().body(messageBody.toString())
                 .when().post(context.session.get("endpoint").toString());
 
-        /*CreateMessageModel createMessageModel = ResponseHandler.deserializedResponse(context.response, CreateMessageModel.class);
+        CreateMessageModel createMessageModel = ResponseHandler.deserializedResponse(context.response, CreateMessageModel.class);
         assertNotNull("Message not created", createMessageModel);
         LOG.info("Newly created Message ID: "+createMessageModel.getMessageid());
         System.out.println("Newly created Message ID: "+createMessageModel.getMessageid());
         context.session.put("messageID", createMessageModel.getMessageid());
-        validateMessageData(new JSONObject(messageData), createMessageModel);*/
+        validateMessageData(new JSONObject(messageData), createMessageModel);
     }
 
     private void validateMessageData(JSONObject messageData, CreateMessageModel createMessageModel) {
         LOG.info(messageData);
 
-       /*assertEquals("Name did not match", messageData.get("name"), createMessageModel.getName());
+       assertEquals("Name did not match", messageData.get("name"), createMessageModel.getName());
         assertEquals("Email did not match", messageData.get("email"), createMessageModel.getEmail());
         assertEquals("Phone did not match", messageData.get("phone"), createMessageModel.getPhone());
         assertEquals("Subject did not match", messageData.get("subject"), createMessageModel.getSubject());
-        assertEquals("Description did not match", messageData.get("description"), createMessageModel.getDescription());*/
+        assertEquals("Description did not match", messageData.get("description"), createMessageModel.getDescription());
 
     }
 

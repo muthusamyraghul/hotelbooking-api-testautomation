@@ -1,7 +1,0 @@
--------------------------------------------------------------------------------
-Test set: com.api.test.TestRunner
--------------------------------------------------------------------------------
-Tests run: 5, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 3.174 s <<< FAILURE! - in com.api.test.TestRunner
-Verify the response and status code by passing empty name field #1(Creation of Message)  Time elapsed: 2.103 s  <<< FAILURE!
-org.junit.ComparisonFailure: expected:<[Name m[ay not be blank, Name must be set]]> but was:<[Name m[ust be set, Name may not be blank]]>
-
