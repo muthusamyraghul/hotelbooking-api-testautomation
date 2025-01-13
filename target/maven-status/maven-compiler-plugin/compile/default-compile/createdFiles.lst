@@ -3,6 +3,5 @@ com\api\model\CreateMessageModel.class
 com\api\utils\TestContext.class
 org\example\App.class
 com\api\stepdefinition\getListOfMessagesStepDef.class
-com\api\stepdefinition\createMessageStepDef.class
 com\api\utils\PropertiesFile.class
 com\api\utils\RestAssuredRequestFilter.class

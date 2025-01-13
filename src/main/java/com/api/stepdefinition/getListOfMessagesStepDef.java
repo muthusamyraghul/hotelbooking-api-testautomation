@@ -39,4 +39,19 @@ public class getListOfMessagesStepDef {
         context.session.put("messageID", js.getInt("messages[0].id"));
     }
 
+    @When("user makes a request to view number of messages")
+    public void userMakeRequestToViewNumberOfMessages(){
+        context.response = context.requestSetup()
+                .when().get(context.session.get("endpoint").toString());
+    }
+
+    @Then("user should see message details by {string}")
+    public void userShouldGetTheMessageDetailById(String id) {
+        JsonPath js = new JsonPath(context.response.getBody().asString());
+        String actualMessageId = js.getString("messageid");
+        System.out.println(actualMessageId);
+        assertEquals(actualMessageId, id);
+    }
+
+
 }
