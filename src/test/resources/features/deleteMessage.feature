@@ -13,7 +13,7 @@ Feature: To Delete the Message by Id
     Then user should get the response code 202
     Examples:
       |id |
-      |33 |
+      |1 |
 
   @e2eTest
   Scenario Outline: To perform a CURD operation on message service
