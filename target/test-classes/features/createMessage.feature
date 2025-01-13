@@ -18,7 +18,7 @@ Feature: Creation of Message
   @errorValidation
   Scenario Outline: Verify the response and status code by passing empty name field
     Given user has access to endpoint "/message/"
-    When user creates a message
+    When user posts the message to validate the response
       | name   | email   | phone   | subject   | description   |
       | <name>| <email> | <phone> | <subject> | <description> |
     Then user should get the response code 400

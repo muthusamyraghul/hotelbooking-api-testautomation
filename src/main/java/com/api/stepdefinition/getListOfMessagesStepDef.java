@@ -7,6 +7,8 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import io.restassured.http.Cookie;
+import io.restassured.http.Cookies;
 import io.restassured.path.json.JsonPath;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -66,6 +68,24 @@ public class getListOfMessagesStepDef {
         String actualMessageCount= js.getString("count");
         System.out.println(actualMessageCount);
         assertNotNull("Message Count not found!", actualMessageCount);
+    }
+
+    @When("user makes a request to view message detail by id")
+    public void userMakeRequestToViewMessageDetailById(){
+        LOG.info("Session messageID: "+context.session.get("messageID"));
+        CreateMessageModel createMessageModel = ResponseHandler.deserializedResponse(context.response, CreateMessageModel.class);
+        context.response = context.requestSetup()
+                .pathParam("messageID", context.session.get("messageID"))
+                .when().get(context.session.get("endpoint") + "{messageID}");
+        assertNotNull("Message Details Not Found ", createMessageModel);
+        Cookies allDetailedCookies =context.response.detailedCookies();
+        Cookie token = allDetailedCookies.get("token");
+        System.out.print("%###Token in get message by id"+token);
+//        context.session.put("name", createMessageModel.getName());
+//        context.session.put("email", createMessageModel.getEmail());
+//        context.session.put("phone", createMessageModel.getPhone());
+//        context.session.put("subject", createMessageModel.getSubject());
+//        context.session.put("description", createMessageModel.getDescription());
     }
 
 }

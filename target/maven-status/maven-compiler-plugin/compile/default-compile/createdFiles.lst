@@ -1,4 +1,6 @@
+com\api\stepdefinition\deleteMessagesStepDef.class
 com\api\utils\ResponseHandler.class
+com\api\stepdefinition\updateMessagesStedDef.class
 com\api\model\CreateMessageModel.class
 com\api\utils\TestContext.class
 org\example\App.class

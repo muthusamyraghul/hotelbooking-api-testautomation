@@ -1,0 +1,136 @@
+
+@messageAPI @createMessage @createMessageDataTable
+Scenario Outline: To create new message using cucumber Data Table             # src/test/resources/features/createMessage.feature:15
+  Given user has access to endpoint "/message/"                               # com.api.stepdefinition.getListOfMessagesStepDef.userHasAccessToEndpoint(java.lang.String)
+  When user creates a message                                                 # com.api.stepdefinition.createMessageStepDef.userCreatesAMessage(io.cucumber.datatable.DataTable)
+    | name | email         | phone       | subject          | description                        |
+    | John | john@test.com | 32467824748 | Create Message 1 | Create Message 1 -Description Demo |
+  Then user should get the response code 201                                  # com.api.stepdefinition.getListOfMessagesStepDef.userShouldGetTheResponseCode(java.lang.Integer)
+  And user validates the response with JSON schema "createMessageSchema.json" # com.api.stepdefinition.createMessageStepDef.userValidatesResponseWithJSONSchema(java.lang.String)
+
+@messageAPI @createMessage @createMessageDataTable
+Scenario Outline: To create new message using cucumber Data Table             # src/test/resources/features/createMessage.feature:16
+  Given user has access to endpoint "/message/"                               # com.api.stepdefinition.getListOfMessagesStepDef.userHasAccessToEndpoint(java.lang.String)
+  When user creates a message                                                 # com.api.stepdefinition.createMessageStepDef.userCreatesAMessage(io.cucumber.datatable.DataTable)
+    | name | email         | phone       | subject          | description                        |
+    | Jack | jack@test.com | 32467838296 | Create Message 2 | Create Message 1 -Description Demo |
+  Then user should get the response code 201                                  # com.api.stepdefinition.getListOfMessagesStepDef.userShouldGetTheResponseCode(java.lang.Integer)
+  And user validates the response with JSON schema "createMessageSchema.json" # com.api.stepdefinition.createMessageStepDef.userValidatesResponseWithJSONSchema(java.lang.String)
+
+@messageAPI @createMessage @errorValidation
+Scenario Outline: Verify the response and status code by passing empty name field                              # src/test/resources/features/createMessage.feature:29
+  Given user has access to endpoint "/message/"                                                                # com.api.stepdefinition.getListOfMessagesStepDef.userHasAccessToEndpoint(java.lang.String)
+  When user posts the message to validate the response                                                         # com.api.stepdefinition.createMessageStepDef.userCreatesMessage(io.cucumber.datatable.DataTable)
+    | name    | email       | phone       | subject          | description                        |
+    | [empty] | xyz@abc.com | 32467824748 | Create Message 1 | Create Message 1 -Description Demo |
+  Then user should get the response code 400                                                                   # com.api.stepdefinition.getListOfMessagesStepDef.userShouldGetTheResponseCode(java.lang.Integer)
+  And the user should be able to verify the response for incorrect "[Name must be set, Name may not be blank]" # com.api.stepdefinition.createMessageStepDef.theUserShouldBeAbleToVerifyThe(java.lang.String)
+
+@messageAPI @createMessage @errorValidation
+Scenario Outline: Verify the response and status code by passing empty name field                          # src/test/resources/features/createMessage.feature:30
+  Given user has access to endpoint "/message/"                                                            # com.api.stepdefinition.getListOfMessagesStepDef.userHasAccessToEndpoint(java.lang.String)
+  When user posts the message to validate the response                                                     # com.api.stepdefinition.createMessageStepDef.userCreatesMessage(io.cucumber.datatable.DataTable)
+    | name | email | phone       | subject          | description                        |
+    | John | john  | 32467838296 | Create Message 1 | Create Message 1 -Description Demo |
+  Then user should get the response code 400                                                               # com.api.stepdefinition.getListOfMessagesStepDef.userShouldGetTheResponseCode(java.lang.Integer)
+  And the user should be able to verify the response for incorrect "[must be a well-formed email address]" # com.api.stepdefinition.createMessageStepDef.theUserShouldBeAbleToVerifyThe(java.lang.String)
+
+@messageAPI @createMessage @errorValidation
+Scenario Outline: Verify the response and status code by passing empty name field                                  # src/test/resources/features/createMessage.feature:31
+  Given user has access to endpoint "/message/"                                                                    # com.api.stepdefinition.getListOfMessagesStepDef.userHasAccessToEndpoint(java.lang.String)
+  When user posts the message to validate the response                                                             # com.api.stepdefinition.createMessageStepDef.userCreatesMessage(io.cucumber.datatable.DataTable)
+    | name | email       | phone      | subject          | description                        |
+    | John | abc@xyz.com | 3246824748 | Create Message 1 | Create Message 1 -Description Demo |
+  Then user should get the response code 400                                                                       # com.api.stepdefinition.getListOfMessagesStepDef.userShouldGetTheResponseCode(java.lang.Integer)
+  And the user should be able to verify the response for incorrect "[Phone must be between 11 and 21 characters.]" # com.api.stepdefinition.createMessageStepDef.theUserShouldBeAbleToVerifyThe(java.lang.String)
+
+@messageAPI @createMessage @errorValidation
+Scenario Outline: Verify the response and status code by passing empty name field                                    # src/test/resources/features/createMessage.feature:32
+  Given user has access to endpoint "/message/"                                                                      # com.api.stepdefinition.getListOfMessagesStepDef.userHasAccessToEndpoint(java.lang.String)
+  When user posts the message to validate the response                                                               # com.api.stepdefinition.createMessageStepDef.userCreatesMessage(io.cucumber.datatable.DataTable)
+    | name  | email         | phone       | subject | description                        |
+    | Peter | James@xyz.com | 32467824748 | Re      | Create Message 1 -Description Demo |
+  Then user should get the response code 400                                                                         # com.api.stepdefinition.getListOfMessagesStepDef.userShouldGetTheResponseCode(java.lang.Integer)
+  And the user should be able to verify the response for incorrect "[Subject must be between 5 and 100 characters.]" # com.api.stepdefinition.createMessageStepDef.theUserShouldBeAbleToVerifyThe(java.lang.String)
+
+@messageAPI @createMessage @errorValidation
+Scenario Outline: Verify the response and status code by passing empty name field                                      # src/test/resources/features/createMessage.feature:33
+  Given user has access to endpoint "/message/"                                                                        # com.api.stepdefinition.getListOfMessagesStepDef.userHasAccessToEndpoint(java.lang.String)
+  When user posts the message to validate the response                                                                 # com.api.stepdefinition.createMessageStepDef.userCreatesMessage(io.cucumber.datatable.DataTable)
+    | name  | email         | phone       | subject      | description |
+    | Peter | James@xyz.com | 32467824748 | Test subject | ts          |
+  Then user should get the response code 400                                                                           # com.api.stepdefinition.getListOfMessagesStepDef.userShouldGetTheResponseCode(java.lang.Integer)
+  And the user should be able to verify the response for incorrect "[Message must be between 20 and 2000 characters.]" # com.api.stepdefinition.createMessageStepDef.theUserShouldBeAbleToVerifyThe(java.lang.String)
+
+@messageAPI @deleteMessages @deleteMessageById
+Scenario Outline: To delete a Message by ID                           # src/test/resources/features/deleteMessage.feature:16
+  Given user has access to endpoint "/auth/login"                     # com.api.stepdefinition.getListOfMessagesStepDef.userHasAccessToEndpoint(java.lang.String)
+  When user creates a auth token with credential "admin" & "password" # com.api.stepdefinition.updateMessagesStedDef.userCreatesAAuthTokenWithCredential(java.lang.String,java.lang.String)
+  Then user should get the response code 200                          # com.api.stepdefinition.getListOfMessagesStepDef.userShouldGetTheResponseCode(java.lang.Integer)
+  Given user has access to endpoint "/message/20"                     # com.api.stepdefinition.getListOfMessagesStepDef.userHasAccessToEndpoint(java.lang.String)
+  When user makes a request to delete message                         # com.api.stepdefinition.deleteMessagesStepDef.userMakesARequestToDeleteMessage()
+  Then user should get the response code 202                          # com.api.stepdefinition.getListOfMessagesStepDef.userShouldGetTheResponseCode(java.lang.Integer)
+
+@messageAPI @deleteMessages @deleteMessageById
+Scenario Outline: To delete a Message by ID                           # src/test/resources/features/deleteMessage.feature:17
+  Given user has access to endpoint "/auth/login"                     # com.api.stepdefinition.getListOfMessagesStepDef.userHasAccessToEndpoint(java.lang.String)
+  When user creates a auth token with credential "admin" & "password" # com.api.stepdefinition.updateMessagesStedDef.userCreatesAAuthTokenWithCredential(java.lang.String,java.lang.String)
+  Then user should get the response code 200                          # com.api.stepdefinition.getListOfMessagesStepDef.userShouldGetTheResponseCode(java.lang.Integer)
+  Given user has access to endpoint "/message/21"                     # com.api.stepdefinition.getListOfMessagesStepDef.userHasAccessToEndpoint(java.lang.String)
+  When user makes a request to delete message                         # com.api.stepdefinition.deleteMessagesStepDef.userMakesARequestToDeleteMessage()
+  Then user should get the response code 202                          # com.api.stepdefinition.getListOfMessagesStepDef.userShouldGetTheResponseCode(java.lang.Integer)
+
+@messageAPI @deleteMessages @e2eTest
+Scenario Outline: To perform a CURD operation on message service              # src/test/resources/features/deleteMessage.feature:34
+  Given user has access to endpoint "/auth/login"                             # com.api.stepdefinition.getListOfMessagesStepDef.userHasAccessToEndpoint(java.lang.String)
+  When user creates a auth token with credential "admin" & "password"         # com.api.stepdefinition.updateMessagesStedDef.userCreatesAAuthTokenWithCredential(java.lang.String,java.lang.String)
+  Then user should get the response code 200                                  # com.api.stepdefinition.getListOfMessagesStepDef.userShouldGetTheResponseCode(java.lang.Integer)
+  Given user has access to endpoint "/message/"                               # com.api.stepdefinition.getListOfMessagesStepDef.userHasAccessToEndpoint(java.lang.String)
+  When user creates a message                                                 # com.api.stepdefinition.createMessageStepDef.userCreatesAMessage(io.cucumber.datatable.DataTable)
+    | name | email         | phone       | subject          | description                        |
+    | John | john@test.com | 32465806422 | Create Message 4 | Create Message 4 -Description Demo |
+  Then user should get the response code 201                                  # com.api.stepdefinition.getListOfMessagesStepDef.userShouldGetTheResponseCode(java.lang.Integer)
+  And user validates the response with JSON schema "createMessageSchema.json" # com.api.stepdefinition.createMessageStepDef.userValidatesResponseWithJSONSchema(java.lang.String)
+  And user makes a request to view message detail by id                       # com.api.stepdefinition.getListOfMessagesStepDef.userMakeRequestToViewMessageDetailById()
+  And user should get the response code 200                                   # com.api.stepdefinition.getListOfMessagesStepDef.userShouldGetTheResponseCode(java.lang.Integer)
+
+@messageAPI @deleteMessages @e2eTest
+Scenario Outline: To perform a CURD operation on message service              # src/test/resources/features/deleteMessage.feature:35
+  Given user has access to endpoint "/auth/login"                             # com.api.stepdefinition.getListOfMessagesStepDef.userHasAccessToEndpoint(java.lang.String)
+  When user creates a auth token with credential "admin" & "password"         # com.api.stepdefinition.updateMessagesStedDef.userCreatesAAuthTokenWithCredential(java.lang.String,java.lang.String)
+  Then user should get the response code 200                                  # com.api.stepdefinition.getListOfMessagesStepDef.userShouldGetTheResponseCode(java.lang.Integer)
+  Given user has access to endpoint "/message/"                               # com.api.stepdefinition.getListOfMessagesStepDef.userHasAccessToEndpoint(java.lang.String)
+  When user creates a message                                                 # com.api.stepdefinition.createMessageStepDef.userCreatesAMessage(io.cucumber.datatable.DataTable)
+    | name | email         | phone       | subject          | description                        |
+    | Jack | jack@test.com | 32465280163 | Create Message 5 | Create Message 5 -Description Demo |
+  Then user should get the response code 201                                  # com.api.stepdefinition.getListOfMessagesStepDef.userShouldGetTheResponseCode(java.lang.Integer)
+  And user validates the response with JSON schema "createMessageSchema.json" # com.api.stepdefinition.createMessageStepDef.userValidatesResponseWithJSONSchema(java.lang.String)
+  And user makes a request to view message detail by id                       # com.api.stepdefinition.getListOfMessagesStepDef.userMakeRequestToViewMessageDetailById()
+  And user should get the response code 200                                   # com.api.stepdefinition.getListOfMessagesStepDef.userShouldGetTheResponseCode(java.lang.Integer)
+
+@messageAPI @viewMessages @viewAllMessages
+Scenario: To view all the Message Details            # src/test/resources/features/getListofMessages.feature:5
+  Given user has access to endpoint "/message"       # com.api.stepdefinition.getListOfMessagesStepDef.userHasAccessToEndpoint(java.lang.String)
+  When user makes a request to view list of messages # com.api.stepdefinition.getListOfMessagesStepDef.userMakeRequestToViewMessages()
+  Then user should get the response code 200         # com.api.stepdefinition.getListOfMessagesStepDef.userShouldGetTheResponseCode(java.lang.Integer)
+
+@messageAPI @viewMessages @viewMessageById
+Scenario Outline: To view a Message Detail by ID       # src/test/resources/features/getMessageById.feature:12
+  Given user has access to endpoint "/message/2"       # com.api.stepdefinition.getListOfMessagesStepDef.userHasAccessToEndpoint(java.lang.String)
+  When user makes a request to view number of messages # com.api.stepdefinition.getListOfMessagesStepDef.userMakeRequestToViewNumberOfMessages()
+  Then user should get the response code 200           # com.api.stepdefinition.getListOfMessagesStepDef.userShouldGetTheResponseCode(java.lang.Integer)
+  And user should see message details by "2"           # com.api.stepdefinition.getListOfMessagesStepDef.userShouldGetTheMessageDetailById(java.lang.String)
+
+@messageAPI @viewMessages @viewMessageById
+Scenario Outline: To view a Message Detail by ID       # src/test/resources/features/getMessageById.feature:13
+  Given user has access to endpoint "/message/3"       # com.api.stepdefinition.getListOfMessagesStepDef.userHasAccessToEndpoint(java.lang.String)
+  When user makes a request to view number of messages # com.api.stepdefinition.getListOfMessagesStepDef.userMakeRequestToViewNumberOfMessages()
+  Then user should get the response code 200           # com.api.stepdefinition.getListOfMessagesStepDef.userShouldGetTheResponseCode(java.lang.Integer)
+  And user should see message details by "3"           # com.api.stepdefinition.getListOfMessagesStepDef.userShouldGetTheMessageDetailById(java.lang.String)
+
+@messageAPI @viewMessages @viewMessageCount
+Scenario: To view number of Messages created                 # src/test/resources/features/getMessagesCount.feature:5
+  Given user has access to endpoint "/message/count"         # com.api.stepdefinition.getListOfMessagesStepDef.userHasAccessToEndpoint(java.lang.String)
+  When user makes a request to view the total messages count # com.api.stepdefinition.getListOfMessagesStepDef.userMakeRequestToViewTotalMessageCount()
+  Then user should get the response code 200                 # com.api.stepdefinition.getListOfMessagesStepDef.userShouldGetTheResponseCode(java.lang.Integer)
+  And user should see message count                          # com.api.stepdefinition.getListOfMessagesStepDef.userShouldSeeTheMessageCount()

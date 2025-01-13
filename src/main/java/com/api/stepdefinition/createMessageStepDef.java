@@ -72,4 +72,17 @@ public class createMessageStepDef {
         LOG.info("Successfully Validated schema from "+schemaFileName);
     }
 
+    @When("user posts the message to validate the response")
+    public void userCreatesMessage(DataTable dataTable) {
+        Map<String,String> messageData = dataTable.asMaps().get(0);
+        JSONObject messageBody = new JSONObject();
+        messageBody.put("name", messageData.get("name"));
+        messageBody.put("email", messageData.get("email"));
+        messageBody.put("phone",messageData.get("phone"));
+        messageBody.put("subject", messageData.get("subject"));
+        messageBody.put("description", messageData.get("description"));
+        context.response = context.requestSetup().body(messageBody.toString())
+                .when().post(context.session.get("endpoint").toString());
+    }
+
 }

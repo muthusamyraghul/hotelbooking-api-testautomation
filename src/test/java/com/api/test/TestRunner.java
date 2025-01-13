@@ -16,7 +16,7 @@ import io.cucumber.junit.CucumberOptions.SnippetType;
         ,glue = {"com.api.stepdefinition"}
          ,monochrome = true
         ,snippets = SnippetType.CAMELCASE
-        ,tags = "@viewMessageCount"
+        ,tags = "@messageAPI"
 
 )
 public class TestRunner {
