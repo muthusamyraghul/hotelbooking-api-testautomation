@@ -1,0 +1,7 @@
+
+@messageAPI @viewMessages @viewMessageCount
+Scenario: To view number of Messages created                 # src/test/resources/features/getMessagesCount.feature:5
+  Given user has access to endpoint "/message/count"         # com.api.stepdefinition.getListOfMessagesStepDef.userHasAccessToEndpoint(java.lang.String)
+  When user makes a request to view the total messages count # com.api.stepdefinition.getListOfMessagesStepDef.userMakeRequestToViewTotalMessageCount()
+  Then user should get the response code 200                 # com.api.stepdefinition.getListOfMessagesStepDef.userShouldGetTheResponseCode(java.lang.Integer)
+  And user should see message count                          # com.api.stepdefinition.getListOfMessagesStepDef.userShouldSeeTheMessageCount()
