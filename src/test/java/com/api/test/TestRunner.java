@@ -11,13 +11,12 @@ import io.cucumber.junit.CucumberOptions.SnippetType;
         plugin = {"pretty:target/cucumber/cucumber.txt",
                 "json:target/cucumber/cucumber.json",
                 "html:target/cucumber/cucumber.html",
-
         }
         ,features= {"src/test/resources/features"}
         ,glue = {"com.api.stepdefinition"}
          ,monochrome = true
         ,snippets = SnippetType.CAMELCASE
-        ,tags = "@createMessageDataTable"
+        ,tags = "@errorValidation"
 
 )
 public class TestRunner {

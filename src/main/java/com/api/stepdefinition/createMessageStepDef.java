@@ -4,9 +4,11 @@ import com.api.model.CreateMessageModel;
 import com.api.utils.ResponseHandler;
 import com.api.utils.TestContext;
 import io.cucumber.datatable.DataTable;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.restassured.module.jsv.JsonSchemaValidator;
+import io.restassured.path.json.JsonPath;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
@@ -57,10 +59,20 @@ public class createMessageStepDef {
 
     }
 
+    @And("the user should be able to verify the response for incorrect {string}")
+    public void theUserShouldBeAbleToVerifyThe(String error_message) {
+        JsonPath js = new JsonPath(context.response.getBody().asString());
+        String actualErrorMessage = js.getString("fieldErrors");
+        System.out.println(actualErrorMessage);
+        assertEquals(actualErrorMessage, error_message);
+    }
+
     @Then("user validates the response with JSON schema {string}")
     public void userValidatesResponseWithJSONSchema(String schemaFileName) {
         context.response.then().assertThat().body(JsonSchemaValidator.matchesJsonSchemaInClasspath("schemas/"+schemaFileName));
         LOG.info("Successfully Validated schema from "+schemaFileName);
     }
+
+
 
 }
