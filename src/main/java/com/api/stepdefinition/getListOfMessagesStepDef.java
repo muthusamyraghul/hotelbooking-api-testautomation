@@ -12,6 +12,7 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 
 public class getListOfMessagesStepDef {
@@ -53,5 +54,18 @@ public class getListOfMessagesStepDef {
         assertEquals(actualMessageId, id);
     }
 
+    @When("user makes a request to view the total messages count")
+    public void userMakeRequestToViewTotalMessageCount() {
+        context.response = context.requestSetup()
+                .when().get(context.session.get("endpoint").toString());
+    }
+
+    @Then("user should see message count")
+    public void userShouldSeeTheMessageCount(){
+        JsonPath js = new JsonPath(context.response.getBody().asString());
+        String actualMessageCount= js.getString("count");
+        System.out.println(actualMessageCount);
+        assertNotNull("Message Count not found!", actualMessageCount);
+    }
 
 }

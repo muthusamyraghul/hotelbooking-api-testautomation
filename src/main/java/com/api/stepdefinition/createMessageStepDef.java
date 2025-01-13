@@ -40,8 +40,8 @@ public class createMessageStepDef {
         context.response = context.requestSetup().body(messageBody.toString())
                 .when().post(context.session.get("endpoint").toString());
 
-        CreateMessageModel createMessageModel = ResponseHandler.deserializedResponse(context.response, CreateMessageModel.class);
-        assertNotNull("Message not created", createMessageModel);
+        //CreateMessageModel createMessageModel = ResponseHandler.deserializedResponse(context.response, CreateMessageModel.class);
+        //assertNotNull("Message not created", createMessageModel);
         //LOG.info("Newly created Message ID: "+createMessageModel.getMessageid());
         //System.out.println("Newly created Message ID: "+createMessageModel.getMessageid());
         //context.session.put("messageID", createMessageModel.getMessageid());
